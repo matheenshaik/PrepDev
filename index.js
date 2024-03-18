@@ -1,15 +1,18 @@
 const express = require('express')
-
+const router = require('./routes/route')
 const app = express()
+const mongoose = require('mongoose')
 
 const port = process.env.port || 5000
 
-//TEST API - get
+app.use(express.json())
 
-app.get('/', (req, res)=>{
-    res.send('response done')
+//DB
+mongoose.connect("mongodb+srv://matheenahamad:9TNGWEhzUB0Ttemi@matheen.vtdepfw.mongodb.net/pre-data")
+.then(()=> console.log('Db conncted'))
+.catch((err) => console.log(err))
 
-})
+app.use("/", router)
 
 
 app.listen(port, ()=> {console.log(`server running on ${port}`)})
